@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Summarize",
+  "version": "1.0",
+  "description": "Summarize selected text or webpage",
+  "permissions": ["activeTab", "contextMenus", "scripting"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png"
+  }
+}
