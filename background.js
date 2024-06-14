@@ -1,20 +1,22 @@
+import showContentInSideBar from './common.js';
+
 let toolsMenuItem = {
   "id": "genai-tools",
   "title": "GenAI Tools",
-  "contexts": ["selection"]
+  "contexts": ["all"]
 };
 
 let summaryItem = {
   "id": "genai-tools-summary",
   "title": "Quick Summarization",
-  "contexts": ["selection"],
+  "contexts": ["all"],
   "parentId": "genai-tools"
 };
 
 let rewriteItem = {
   "id": "genai-tools-rewrite",
   "title": "Rewrite",
-  "contexts": ["selection"],
+  "contexts": ["all"],
   "parentId": "genai-tools"
 };
 
@@ -22,38 +24,27 @@ chrome.contextMenus.create(toolsMenuItem);
 chrome.contextMenus.create(summaryItem);
 chrome.contextMenus.create(rewriteItem);
 
-
-
-function generate_summary(selected_text, page_url) {
-  
+function generateSummary(tab_id, selectedText, pageUrl) {
+  chrome.scripting.executeScript({
+    target: { tabId: tab_id },
+    function: showContentInSideBar,
+    args: ["Summarization", selectedText]
+  });
 }
 
-function rewrite_context(selected_text) {
-  
+function rewriteContent(tab_id, selectedText, pageUrl) {
+  chrome.scripting.executeScript({
+    target: { tabId: tab_id },
+    function: showContentInSideBar,
+    args: ["Rewrite", selectedText]
+  });
 }
-
-
-let latestSelectedText = "";
-let latestPageUrl = "";
 
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
-  if (info.menuItemId === "summary") {
-    latestSelectedText = info.selectionText;
-    latestPageUrl = info.pageUrl;
-
-    chrome.windows.create({
-      url: "popup.html",
-      focused: true,
-      type: "popup",
-      width: 400,
-      height: 200
-    });
-  }
-
-});
-
-chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-  if (message.action === "getSummaryData") {
-    sendResponse({ selectedText: latestSelectedText, pageUrl: latestPageUrl });
+  if (info.menuItemId === "genai-tools-summary") {
+    generateSummary(tab.id, info.selectionText, info.pageUrl);
+  } else if (info.menuItemId === "genai-tools-rewrite") {
+    rewriteContent(tab.id, info.selectionText, info.pageUrl);
   }
 });
+
