@@ -1,4 +1,5 @@
-import showContentInSideBar from './common.js';
+import showContentInSideBar from './sidebar.js';
+import showChatSidebar from './chatsidebar.js';
 
 let toolsMenuItem = {
   "id": "genai-tools",
@@ -20,9 +21,17 @@ let rewriteItem = {
   "parentId": "genai-tools"
 };
 
+let chatWithAIItem = {
+  "id": "genai-tools-chat",
+  "title": "Chat with AI",
+  "contexts": ["all"],
+  "parentId": "genai-tools"
+};
+
 chrome.contextMenus.create(toolsMenuItem);
 chrome.contextMenus.create(summaryItem);
 chrome.contextMenus.create(rewriteItem);
+chrome.contextMenus.create(chatWithAIItem);
 
 function generateSummary(tab_id, selectedText, pageUrl) {
   chrome.scripting.executeScript({
@@ -36,7 +45,14 @@ function rewriteContent(tab_id, selectedText, pageUrl) {
   chrome.scripting.executeScript({
     target: { tabId: tab_id },
     function: showContentInSideBar,
-    args: ["Rewrite", selectedText]
+    args: ["Rewritten Text", selectedText]
+  });
+}
+
+function startChat(tab_id, selectedText, pageUrl) {
+  chrome.scripting.executeScript({
+    target: { tabId: tab_id },
+    function: showChatSidebar
   });
 }
 
@@ -45,6 +61,8 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
     generateSummary(tab.id, info.selectionText, info.pageUrl);
   } else if (info.menuItemId === "genai-tools-rewrite") {
     rewriteContent(tab.id, info.selectionText, info.pageUrl);
+  } else if (info.menuItemId === "genai-tools-chat") {
+    startChat(tab.id, info.selectionText, info.pageUrl);
   }
 });
 

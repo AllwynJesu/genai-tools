@@ -11,11 +11,17 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["common.js"]
+      "js": ["sidebar.js", "chatsidebar.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["images/ai-chat.png", "images/ai-chat.ico"],
+      "matches": ["<all_urls>"]
     }
   ],
   "icons": {
-    "16": "images/icon16.png",
-    "48": "images/icon48.png"
+    "16": "images/tool16.png",
+    "48": "images/tool48.png"
   }
 }
