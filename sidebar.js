@@ -11,7 +11,7 @@ export default function showContentInSideBar(title, content) {
 		sidebar.style.position = 'fixed';
 		sidebar.style.top = '0';
 		sidebar.style.right = '0';
-		sidebar.style.width = '300px';
+		sidebar.style.width = '500px';
 		sidebar.style.height = '100%';
 		sidebar.style.backgroundColor = 'white';
 		sidebar.style.borderLeft = '1px solid gray';
@@ -30,7 +30,7 @@ export default function showContentInSideBar(title, content) {
 	      </div>
 	      <hr style="margin: 10px 0;">
 	      <div id="sidebarContent" style="padding: 10px;">
-	        <p>${content}</p>
+	        ${content}
 	      </div>
 	    `;
 
@@ -59,7 +59,17 @@ export default function showContentInSideBar(title, content) {
 
 		if (sidebarTitleElement && sidebarContentElement) {
 			sidebarTitleElement.innerHTML = title; // Update the title.
-			sidebarContentElement.innerHTML = `<p>${content}</p>`; // Update the content.
+			sidebarContentElement.innerHTML = content; // Update the content.
 		}
 	}
+}
+
+export function updateSidebarContent(title, content) {
+  const sidebarTitleElement = document.getElementById('sidebarTitle');
+  const sidebarContentElement = document.getElementById('sidebarContent');
+
+  if (sidebarTitleElement && sidebarContentElement) {
+    sidebarTitleElement.innerHTML = title; // Update the title.
+    sidebarContentElement.innerHTML = content; // Update the content.
+  }
 }
