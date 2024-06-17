@@ -2,10 +2,10 @@ import showContentInSideBar from './sidebar.js';
 import updateSidebarContent from './sidebar.js';
 import showChatSidebar from './chatsidebar.js';
 
-const SUMMARY_URL = "http://0.0.0.0:8000/tools/summary";
-const REWRITE_URL = "http://0.0.0.0:8000/tools/rewrite";
-const CHAT_WITH_AI_URL = "http://0.0.0.0:8000/tools/chat-ai";
-const EXTRACT_TECH_DETAILS_URL = "http://0.0.0.0:8000/tools/extract-details";
+const SUMMARY_URL = "https://allwynjesu-genai-tools-backend.hf.space/tools/summary";
+const REWRITE_URL = "https://allwynjesu-genai-tools-backend.hf.space/tools/rewrite";
+const CHAT_WITH_AI_URL = "https://allwynjesu-genai-tools-backend.hf.space/tools/chat-ai";
+const EXTRACT_TECH_DETAILS_URL = "https://allwynjesu-genai-tools-backend.hf.space/tools/extract-details";
 
 
 let toolsMenuItem = {
